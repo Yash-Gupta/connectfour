@@ -27,7 +27,7 @@ void printGameboard(char gameBoard[][columns], int rows)
 	{
 		for (int i = 0; i < columns; i++)
 		{
-			cout << "| ";
+			cout << "|" << gameBoard[j][i];
 		}
 		cout << "|";
 		cout << endl;
@@ -45,6 +45,19 @@ int main()
 {
 	const int rows = 6;
 	char gameBoard[rows][columns]; //Making the gameboard
+	for(int i = 0; i < rows; i++)
+	{
+		for(int j = 0; j < columns; j++)
+		{
+			gameBoard[i][j] = ' ';
+		}
+	}
+
 	printGameboard(gameBoard, rows);
 	return 0;
 }
+
+
+
+
+
