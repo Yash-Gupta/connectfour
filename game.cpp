@@ -4,7 +4,7 @@
 //Creates game where two players are able to play the game Connect 4
 
 #include <iostream>
-#include <math.h>  
+#include <math.h>
 #include <cmath>
 using namespace std;
 
@@ -12,52 +12,55 @@ const int columns = 7; //Make global constant for columns to pass through array
 
 void printGameboard(char gameBoard[][columns], int rows)
 {
-	for (int i = 1; i <= columns; i++) //Prints numbers at the top of the board
-	{
-		cout << " " << i;
-	}
-	cout << endl;
-	for (int i = 0; i < columns; i++) //Prints first row of +-
-	{
-		cout << "+-";
-	}
-	cout << "+";
-	cout << endl;
-	for (int j = 0; j < rows; j++) //Prints row of | | |...
-	{
-		for (int i = 0; i < columns; i++)
-		{
-			cout << "|" << gameBoard[j][i];
-		}
-		cout << "|";
-		cout << endl;
-		for (int i = 0; i < columns; i++) //Prints row of +-
-		{
-			cout << "+-";
-		}
-		cout << "+";
-		cout << endl;
-	}
+    for (int i = 1; i <= columns; i++) //Prints numbers at the top of the board
+    {
+        cout << " " << i;
+    }
+    cout << endl;
+    for (int i = 0; i < columns; i++) //Prints first row of +-
+    {
+        cout << "+-";
+    }
+    cout << "+";
+    cout << endl;
+    for (int j = 0; j < rows; j++) //Prints row of | | |...
+    {
+        for (int i = 0; i < columns; i++)
+        {
+            cout << "|" << gameBoard[j][i];
+        }
+        cout << "|";
+        cout << endl;
+        for (int i = 0; i < columns; i++) //Prints row of +-
+        {
+            cout << "+-";
+        }
+        cout << "+";
+        cout << endl;
+    }
+    
+}
 
+void gamestart()
+{
+    const int rows = 6;
+    char gameBoard[rows][columns]; //Making the gameboard
+    for(int i = 0; i < rows; i++)
+    {
+        for(int j = 0; j < columns; j++)
+        {
+            gameBoard[i][j] = ' ';
+        }
+    }
+    
+    printGameboard(gameBoard, rows);
+    
+    bool isX = true;
 }
 
 int main()
 {
-	const int rows = 6;
-	char gameBoard[rows][columns]; //Making the gameboard
-	for(int i = 0; i < rows; i++)
-	{
-		for(int j = 0; j < columns; j++)
-		{
-			gameBoard[i][j] = ' ';
-		}
-	}
-
-	printGameboard(gameBoard, rows);
-	return 0;
+    gamestart();
+    
+    return 0;
 }
-
-
-
-
-
