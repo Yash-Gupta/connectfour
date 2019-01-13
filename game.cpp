@@ -65,14 +65,9 @@ bool checkForWin()
     return true;
 }
 
-void gameEnd()
-{
-    cout << "The game is over. Would you like to play again?";
-}
-
 void gamePlay()
 {
-    int rows = 6;
+    const int rows = 6;
     char gameBoard[rows][columns];
     bool isWin;
     bool isX;
@@ -86,12 +81,29 @@ void gamePlay()
         isX = !isX;
     }
 
-    gameEnd();
+}
 
+int gameEnd()
+{
+    cout << "The game is over. Would you like to play again? (Y/N)" << endl;
+    
+    char input;
+    cin >> input;
+    
+    if (input == 'Y')
+    {
+        gamePlay();
+    }
+
+    if (input == 'N')
+    {
+        return 0;
+    }
 }
 
 int main()
 {
     gamePlay();
+    gameEnd();
     return 0;
 }
