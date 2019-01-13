@@ -88,9 +88,26 @@ int dropPiece (char gameBoard[][columns], int rows, bool isX) //Drops icon into 
     return 0;
 }
 
-bool checkForWin()
+bool checkForWin(char gameBoard[][columns])
 {
-    return true;
+    // checking vertical
+    for (int column = 6; column >= 0; column--)
+    {
+        for (int row = 5; row >= 3; row--)
+        {
+            if(gameBoard[row][column] == 'O')
+            {
+                if(gameBoard[row][column] != ' ' && gameBoard[row][column] == gameBoard[row-1][column] && gameBoard[row][column] == gameBoard[row-2][column] && gameBoard[row][column] == gameBoard[row-3][column]) 
+                {
+                    cout << "four WIN" << endl;
+                    return true;
+                }
+
+            }
+
+        }
+    }
+
 }
 
 int gamePlay()
@@ -105,8 +122,8 @@ int gamePlay()
     while(!isWin)
     {
         dropPiece(gameBoard, rows, isX);
+        isWin = checkForWin(gameBoard);
         isX = !isX;
-        isWin = false;
     }
 
     return 0;
