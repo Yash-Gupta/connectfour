@@ -4,8 +4,6 @@
 //Creates game where two players are able to play the game Connect 4
 
 #include <iostream>
-#include <math.h>
-#include <cmath>
 using namespace std;
 
 const int columns = 7; //Make global constant for columns to pass through array
