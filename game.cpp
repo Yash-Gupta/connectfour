@@ -99,7 +99,6 @@ bool checkForWin(char gameBoard[][columns])
             {
                 if(gameBoard[row][column] != ' ' && gameBoard[row][column] == gameBoard[row-1][column] && gameBoard[row][column] == gameBoard[row-2][column] && gameBoard[row][column] == gameBoard[row-3][column]) 
                 {
-                    cout << "four WIN" << endl;
                     return true;
                 }
 
@@ -107,8 +106,31 @@ bool checkForWin(char gameBoard[][columns])
 
         }
     }
+    for (int column = 6; column >= 3; column--)
+    {
+    	for (int row = 2; row >=0; row--)
+    	{
+    		if(gameBoard[row][column] != ' ' && gameBoard[row][column] == gameBoard[row+1][column-1] && gameBoard[row][column] == gameBoard[row+2][column-2] && gameBoard[row][column] == gameBoard[row+3][column-3] )
+    		{
+    			return true;
+    		}
+    	}
+
+    }
+    for (int column = 0; column <= 3; column ++)
+    {
+    	for (int row = 2; row >=0; row--)
+    	{ 
+    		if(gameBoard[row][column] != ' ' && gameBoard[row][column] == gameBoard[row+1][column+1] && gameBoard[row][column] == gameBoard[row+2][column+2] && gameBoard[row][column] == gameBoard[row+3][column+3])
+   			{
+   				return true;	
+   			}
+   		}
+
+    }
 
 }
+
 
 int gamePlay()
 {
