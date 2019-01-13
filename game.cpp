@@ -56,6 +56,18 @@ void gamestart()
     printGameboard(gameBoard, rows);
     
     bool isX = true;
+    bool isWin = false;
+}
+
+void gameplay()
+{
+    gamestart();
+
+}
+
+void gameend()
+{
+    cout << "The game is over. Would you like to play again?";
 }
 
 int main()
