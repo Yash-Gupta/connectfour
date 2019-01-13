@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 
-const int columns = 7; //Make global constant for columns to pass through array
+const int columns = 7;
 
 void printGameboard(char gameBoard[][columns], int rows)
 {
@@ -39,10 +39,8 @@ void printGameboard(char gameBoard[][columns], int rows)
     
 }
 
-void gamestart()
+void gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
 {
-    const int rows = 6;
-    char gameBoard[rows][columns]; //Making the gameboard
     for(int i = 0; i < rows; i++)
     {
         for(int j = 0; j < columns; j++)
@@ -53,24 +51,47 @@ void gamestart()
     
     printGameboard(gameBoard, rows);
     
-    bool isX = true;
-    bool isWin = false;
+    isX = true;
+    isWin = false;
 }
 
-void gameplay()
+void dropPiece()
 {
-    gamestart();
 
 }
 
-void gameend()
+bool checkForWin()
+{
+    return true;
+}
+
+void gameEnd()
 {
     cout << "The game is over. Would you like to play again?";
 }
 
+void gamePlay()
+{
+    int rows = 6;
+    char gameBoard[rows][columns];
+    bool isWin;
+    bool isX;
+
+    gameStart(gameBoard, rows, isWin, isX);
+
+    while(!isWin)
+    {
+        dropPiece();
+        isWin = checkForWin();
+        isX = !isX;
+    }
+
+    gameEnd();
+
+}
+
 int main()
 {
-    gamestart();
-    
+    gamePlay();
     return 0;
 }
