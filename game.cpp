@@ -8,10 +8,10 @@ using namespace std;
 
 const int columns = 7;
 
-void printGameboard(char gameBoard[][columns], int rows)
+int printGameboard(char gameBoard[][columns], int rows)
 {
-    for (int i = 1; i <= columns; i++) //Prints numbers at the top of the board
-    {
+    for (int i = 0; i < columns; i++) //Prints numbers at the top of the board
+    {   
         cout << " " << i;
     }
     cout << endl;
@@ -36,10 +36,11 @@ void printGameboard(char gameBoard[][columns], int rows)
         cout << "+";
         cout << endl;
     }
+    return 0;
     
 }
 
-void gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
+int gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
 {
     for(int i = 0; i < rows; i++)
     {
@@ -53,9 +54,11 @@ void gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
     
     isX = true;
     isWin = false;
+
+    return 0;
 }
 
-void dropPiece (char gameBoard[][columns], int rows, bool isX) //Drops icon into gameboard
+int dropPiece (char gameBoard[][columns], int rows, bool isX) //Drops icon into gameboard
 {
 	int userInput;
 	cout << "Pick number from 0-6 to drop icon: " << endl;
@@ -68,18 +71,21 @@ void dropPiece (char gameBoard[][columns], int rows, bool isX) //Drops icon into
 	}
 
 	char gameLetter = isX ? 'X' : 'O'; //Shortcut to true/false ternary
-	for (int i = (rows - 1); i >= 0; i--)
-	{
-		if (gameboard[i][userInput] == ' ')
-		{
-			if (isX == true)
-			gameboard[i][userInput] == 'X'
-		} 
-		if (gameboard[i][userInput] != ' ')
-		{
-			gameboard[i][userInput] == 
-		}
-	}
+    int row = 6;
+	while (gameBoard[row][userInput] != ' ' && row > -1)
+    {
+        row--;
+    }
+    if (row == - 1)
+    {
+        cout << "Invalid move, try different column: ";
+        dropPiece(gameBoard, rows, isX);
+    }
+
+    gameBoard[row][userInput] = gameLetter;
+    printGameboard(gameBoard, rows);
+
+    return 0;
 }
 
 bool checkForWin()
@@ -87,7 +93,7 @@ bool checkForWin()
     return true;
 }
 
-void gamePlay()
+int gamePlay()
 {
     const int rows = 6;
     char gameBoard[rows][columns];
@@ -98,10 +104,12 @@ void gamePlay()
 
     while(!isWin)
     {
-        dropPiece();
-        isWin = checkForWin();
+        dropPiece(gameBoard, rows, isX);
         isX = !isX;
+        isWin = false;
     }
+
+    return 0;
 
 }
 
