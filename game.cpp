@@ -1,7 +1,4 @@
-//Pawan Sarma, yash Gupta, Saurabh Narain, Austin Chen
-//January 8th, 2019
-//Connect 4 Final Program
-//Creates game where two players are able to play the game Connect 4
+// CONNECT 4 made with love by Yash, Saurabh, Pawan, Austin, and Roshan
 
 #include <iostream>
 using namespace std;
@@ -10,18 +7,23 @@ const int columns = 7;
 
 int printGameboard(char gameBoard[][columns], int rows)
 {
-    for (int i = 0; i < columns; i++) //Prints numbers at the top of the board
+    // Prints numbers at the top of the board
+    for (int i = 0; i < columns; i++) 
     {   
         cout << " " << i;
     }
     cout << endl;
-    for (int i = 0; i < columns; i++) //Prints first row of +-
+
+    // Prints first row of +-
+    for (int i = 0; i < columns; i++) 
     {
         cout << "+-";
     }
     cout << "+";
     cout << endl;
-    for (int j = 0; j < rows; j++) //Prints row of | | |...
+
+    // Prints row of | | |...
+    for (int j = 0; j < rows; j++) 
     {
         for (int i = 0; i < columns; i++)
         {
@@ -29,7 +31,9 @@ int printGameboard(char gameBoard[][columns], int rows)
         }
         cout << "|";
         cout << endl;
-        for (int i = 0; i < columns; i++) //Prints row of +-
+
+        // Prints row of +-
+        for (int i = 0; i < columns; i++) 
         {
             cout << "+-";
         }
@@ -42,6 +46,7 @@ int printGameboard(char gameBoard[][columns], int rows)
 
 int gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
 {
+    // initialize game board with spaces
     for(int i = 0; i < rows; i++)
     {
         for(int j = 0; j < columns; j++)
@@ -51,15 +56,13 @@ int gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
     }
     
     printGameboard(gameBoard, rows);
-    
-    isX = true;
-    isWin = false;
 
     return 0;
 }
 
-int dropPiece (char gameBoard[][columns], int rows, bool isX) //Drops icon into gameboard
+int dropPiece (char gameBoard[][columns], int rows, bool isX) // Drops icon into gameboard
 {
+    // user input for column
 	int userInput;
 	cout << "Pick number from 0-6 to drop icon: " << endl;
 	cin >> userInput;
@@ -70,7 +73,9 @@ int dropPiece (char gameBoard[][columns], int rows, bool isX) //Drops icon into 
 		cin >> userInput;
 	}
 
-	char gameLetter = isX ? 'X' : 'O'; //Shortcut to true/false ternary
+	char gameLetter = isX ? 'X' : 'O';
+
+    // add X or O to available slot in column
     int row = 6;
 	while (gameBoard[row][userInput] != ' ' && row > -1)
     {
@@ -95,17 +100,15 @@ bool checkForWin(char gameBoard[][columns])
     {
         for (int row = 5; row >= 3; row--)
         {
-            if(gameBoard[row][column] == 'O')
+            if(gameBoard[row][column] != ' ' && gameBoard[row][column] == gameBoard[row-1][column] && gameBoard[row][column] == gameBoard[row-2][column] && gameBoard[row][column] == gameBoard[row-3][column]) 
             {
-                if(gameBoard[row][column] != ' ' && gameBoard[row][column] == gameBoard[row-1][column] && gameBoard[row][column] == gameBoard[row-2][column] && gameBoard[row][column] == gameBoard[row-3][column]) 
-                {
-                    return true;
-                }
-
+                return true;
             }
-
         }
     }
+
+
+    // checking left down diagonal
     for (int column = 6; column >= 3; column--)
     {
     	for (int row = 2; row >=0; row--)
@@ -117,6 +120,8 @@ bool checkForWin(char gameBoard[][columns])
     	}
 
     }
+
+    // checking right down diagonal
     for (int column = 0; column <= 3; column ++)
     {
     	for (int row = 2; row >=0; row--)
@@ -129,50 +134,56 @@ bool checkForWin(char gameBoard[][columns])
 
     }
 
+    // checking horizontal
+    for (int row = 5; row >= 0; row--)
+    {
+        for (int column = 0; column <= 3; column++)
+        {
+            if(gameBoard[row][column] != ' ' && gameBoard[row][column] == gameBoard[row][column+1] && gameBoard[row][column] == gameBoard[row][column+2] && gameBoard[row][column] == gameBoard[row][column+3]) 
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 
 int gamePlay()
 {
+    // initialize game
     const int rows = 6;
     char gameBoard[rows][columns];
-    bool isWin;
-    bool isX;
+    bool isWin = false;
+    bool isX = true;
 
     gameStart(gameBoard, rows, isWin, isX);
 
+    // drop coins, change turns until win
     while(!isWin)
     {
         dropPiece(gameBoard, rows, isX);
-        isWin = checkForWin(gameBoard);
         isX = !isX;
+        isWin = checkForWin(gameBoard);   
     }
 
-    return 0;
+    char winner = !isX ? 'X' : 'O';
 
-}
-
-int gameEnd()
-{
-    cout << "The game is over. Would you like to play again? (Y/N)" << endl;
+    cout << "The game is over! Player " << winner << " is the winner! Write 'yes' to start again. Write anything else to exit." << endl;
+    string userInput;
+    cin >> userInput;
     
-    char input;
-    cin >> input;
-    
-    if (input == 'Y')
+    if(userInput == "yes")
     {
         gamePlay();
     }
 
-    if (input == 'N')
-    {
-        return 0;
-    }
+    return 0;
 }
 
 int main()
 {
     gamePlay();
-    gameEnd();
     return 0;
 }
