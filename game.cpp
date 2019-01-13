@@ -55,9 +55,31 @@ void gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
     isWin = false;
 }
 
-void dropPiece()
+void dropPiece (char gameBoard[][columns], int rows, bool isX) //Drops icon into gameboard
 {
+	int userInput;
+	cout << "Pick number from 0-6 to drop icon: " << endl;
+	cin >> userInput;
+	
+	while (userInput < 0 || userInput > 6)
+	{
+		cout << "Invalid number. Pick from 0-6: " << endl;
+		cin >> userInput;
+	}
 
+	char gameLetter = isX ? 'X' : 'O'; //Shortcut to true/false ternary
+	for (int i = (rows - 1); i >= 0; i--)
+	{
+		if (gameboard[i][userInput] == ' ')
+		{
+			if (isX == true)
+			gameboard[i][userInput] == 'X'
+		} 
+		if (gameboard[i][userInput] != ' ')
+		{
+			gameboard[i][userInput] == 
+		}
+	}
 }
 
 bool checkForWin()
