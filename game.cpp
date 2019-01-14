@@ -5,19 +5,21 @@ using namespace std;
 
 const int columns = 7;
 
+// Prints gameBoard 
 int printGameboard(char gameBoard[][columns], int rows)
 {
     // Prints numbers at the top of the board
+    cout << "+---+---+---+---+---+---+---+" << endl;
     for (int i = 0; i < columns; i++) 
     {   
-        cout << " " << i;
+        cout << "  " << i << " ";
     }
     cout << endl;
 
     // Prints first row of +-
     for (int i = 0; i < columns; i++) 
     {
-        cout << "+-";
+        cout << "+---";
     }
     cout << "+";
     cout << endl;
@@ -27,7 +29,7 @@ int printGameboard(char gameBoard[][columns], int rows)
     {
         for (int i = 0; i < columns; i++)
         {
-            cout << "|" << gameBoard[j][i];
+            cout << "| " << gameBoard[j][i] << " ";
         }
         cout << "|";
         cout << endl;
@@ -35,7 +37,7 @@ int printGameboard(char gameBoard[][columns], int rows)
         // Prints row of +-
         for (int i = 0; i < columns; i++) 
         {
-            cout << "+-";
+            cout << "+---";
         }
         cout << "+";
         cout << endl;
@@ -44,6 +46,7 @@ int printGameboard(char gameBoard[][columns], int rows)
     
 }
 
+// Initializes game
 int gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
 {
     // initialize game board with spaces
@@ -60,20 +63,29 @@ int gameStart(char gameBoard[][columns], int rows, bool isWin, bool isX)
     return 0;
 }
 
-int dropPiece (char gameBoard[][columns], int rows, bool isX) // Drops icon into gameboard
+// Takes in user input and drops coin
+int dropPiece (char gameBoard[][columns], int rows, bool isX) 
 {
     // user input for column
+    char gameLetter = isX ? 'X' : 'O';
 	int userInput;
-	cout << "Pick number from 0-6 to drop icon: " << endl;
-	cin >> userInput;
-	
-	while (userInput < 0 || userInput > 6)
-	{
-		cout << "Invalid number. Pick from 0-6: " << endl;
-		cin >> userInput;
-	}
+	cout << "Player " << gameLetter << ": Pick number from 0-6 to drop icon. " << endl;
 
-	char gameLetter = isX ? 'X' : 'O';
+    // input validation
+    for(;;)
+    {
+        if(cin >> userInput && userInput >= 0 && userInput <= 6)
+        {
+            break;
+        }
+        else
+        {
+            cout << "Invalid number!" << endl;
+            cout << "Player " << gameLetter << ": Pick number from 0-6 to drop icon. " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
 
     // add X or O to available slot in column
     int row = 6;
@@ -83,7 +95,7 @@ int dropPiece (char gameBoard[][columns], int rows, bool isX) // Drops icon into
     }
     if (row == - 1)
     {
-        cout << "Invalid move, try different column: ";
+        cout << "Column is full, try different column! " << endl;
         dropPiece(gameBoard, rows, isX);
     }
 
@@ -93,6 +105,7 @@ int dropPiece (char gameBoard[][columns], int rows, bool isX) // Drops icon into
     return 0;
 }
 
+// Check and return win condition
 bool checkForWin(char gameBoard[][columns])
 {
     // checking vertical
@@ -107,7 +120,6 @@ bool checkForWin(char gameBoard[][columns])
         }
     }
 
-
     // checking left down diagonal
     for (int column = 6; column >= 3; column--)
     {
@@ -118,7 +130,6 @@ bool checkForWin(char gameBoard[][columns])
     			return true;
     		}
     	}
-
     }
 
     // checking right down diagonal
@@ -149,10 +160,9 @@ bool checkForWin(char gameBoard[][columns])
     return false;
 }
 
-
+// Initialize game and run game
 int gamePlay()
 {
-    // initialize game
     const int rows = 6;
     char gameBoard[rows][columns];
     bool isWin = false;
@@ -168,6 +178,7 @@ int gamePlay()
         isWin = checkForWin(gameBoard);   
     }
 
+    // End game condition
     char winner = !isX ? 'X' : 'O';
 
     cout << "The game is over! Player " << winner << " is the winner! Write 'yes' to start again. Write anything else to exit." << endl;
@@ -182,6 +193,7 @@ int gamePlay()
     return 0;
 }
 
+// Handle gamePlay function
 int main()
 {
     gamePlay();
